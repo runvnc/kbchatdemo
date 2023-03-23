@@ -1,5 +1,5 @@
 import http from 'http';
-import {InteractionState} from './state.js'
+import InteractionState from './state.js'
 import {contextualQuery} from './kbqueries.mjs'
 
 let state
@@ -20,7 +20,7 @@ const server = http.createServer((req, res) => {
     req.on('data', (chunk) => {
       body += chunk.toString();
     });
-    req.on('end', () => {
+    req.on('end', async () => {
       const query = JSON.parse(body).query;
       console.log(query);
       let result = await contextualQuery(query, state, (d) => {
@@ -33,7 +33,7 @@ const server = http.createServer((req, res) => {
     res.end();
   }
 });
-server.listen(3000, () => {
+server.listen(3600, async () => {
   state = await InteractionState.get('testacct')
   await state.clear()
 
