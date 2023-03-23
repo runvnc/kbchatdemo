@@ -1,23 +1,9 @@
-
+import http from 'http';
 import {InteractionState} from './state.js'
 import {contextualQuery} from './kbqueries.mjs'
 
-let state = await InteractionState.get('testacct')
-await state.clear()
+let state
 
-     //res.setHeader('Content-Type', 'application/json');
-      //res.end(JSON.stringify({ response: 'KB PLACEHOLDER RESPONSE' }));
-    });
-  } else {
-    res.statusCode = 404;
-    res.end();
-  }
-});
-server.listen(3000, () => {
-  console.log('Server running on port 3000');
-});
-
-import http from 'http';
 const server = http.createServer((req, res) => {
   if (req.method === 'POST' && req.url === '/query') {
     res.setHeader('Content-Type', 'text/event-stream');
@@ -48,5 +34,8 @@ const server = http.createServer((req, res) => {
   }
 });
 server.listen(3000, () => {
+  state = await InteractionState.get('testacct')
+  await state.clear()
+
   console.log('Server running on port 3000');
 }); 
