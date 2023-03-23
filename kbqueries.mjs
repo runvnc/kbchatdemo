@@ -37,6 +37,7 @@ const LINE = '\n----------------------------------------------------------------
 
 const contextualQuery = async (input, acct, state, streamUpdate) => {
   const kb = new KnowledgeBase('kb')
+  await state.clear()
   let hist = await state.getRecentHistory()
   hist.push(usr(input)) 
   let res
