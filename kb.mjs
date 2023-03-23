@@ -248,6 +248,17 @@ async isEmpty() {
     }
   }
 
+  async addAllDir(dir) {
+    let files = await fs.readdir(dir)
+    let i = 0
+    let max = files.length
+    for (let file of files) {
+      console.log(`Adding ${i+1} of ${max}:`,file)
+      let text = await fs.readFile(file, 'utf8')
+      await this.add({file, text})
+    }
+  }
+
 }
 
 async function test() {
@@ -273,6 +284,14 @@ async function test3() {
   let kb = new KnowledgeBase('tom/bn19')
   //await kb.addDocument('algorand1.txt', (s) => console.log(s))
   let relevant = await kb.search("HTTP API call to get the forecasted temperature for the next 2 hours in a certain location.")
+  console.log(relevant)
+}
+
+async function test3() {
+  let kb = new KnowledgeBase('kb')
+  await kb.addAllDir('text')
+  //await kb.addDocument('algorand1.txt', (s) => console.log(s))
+  //let relevant = await kb.search("HTTP API call to get the forecasted temperature for the next 2 hours in a certain location.")
   console.log(relevant)
 }
 
