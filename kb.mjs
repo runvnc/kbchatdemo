@@ -1,3 +1,6 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
 import {readdir, readFile, appendFile, writeFile} from "fs/promises"
 import fsx from 'fs-extra'
 import path from 'path'
@@ -14,14 +17,13 @@ const configuration = new Configuration({
 })
 const openai = new OpenAIApi(configuration)
 
-const ACCTS = process.env.ACCTS ? process.env.ACCTS : '/home/runvnc/accts'
 
 export default class KnowledgeBase {
 
   constructor(name) {
     this.name = name
 
-    this.dir = `${ACCTS}/${name}/.kb`
+    this.dir = name
   }
 
   async createIfNecessary(fname) {
@@ -254,8 +256,9 @@ async isEmpty() {
     let max = files.length
     for (let file of files) {
       console.log(`Adding ${i+1} of ${max}:`,file)
-      let text = await readFile(file, 'utf8')
-      await this.add({file, text})
+      let text = await readFile(dir+'/'+file, 'utf8')
+      await this.add({file, lineNumber:0, section:'', text})
+      i++
     }
   }
 
@@ -287,7 +290,7 @@ async function test3() {
   console.log(relevant)
 }
 
-async function test3() {
+async function legal() {
   let kb = new KnowledgeBase('kb')
   await kb.addAllDir('text')
   //await kb.addDocument('algorand1.txt', (s) => console.log(s))
@@ -296,5 +299,5 @@ async function test3() {
 }
 
 
-//test3().catch(console.error)
+legal().catch(console.error)
 
