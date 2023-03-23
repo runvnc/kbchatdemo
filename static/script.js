@@ -2,6 +2,7 @@ const chatForm = document.querySelector('.chat-footer');
 const chatInput = document.querySelector('.chat-footer input');
 const chatBody = document.querySelector('.chat-body');
 chatForm.addEventListener('submit', async (e) => {
+  console.log('submit')
   e.preventDefault();
   const query = chatInput.value;
   chatInput.value = '';
