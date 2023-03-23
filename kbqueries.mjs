@@ -41,10 +41,10 @@ const contextualQuery = async (input, state) => {
 
   try {
     let snippets = await kb.search(hist)
-    snippets = snippets.slice(0,3)
+    //snippets = snippets.slice(0,3)
     if (snippets && snippets.length>0) { 
       let kbprompt = `
-The following knowledegbase sections have the closest vector (embedding) similarity to the requested description. Some are probably relevant:
+The following knowledegbase sections have the closest vector (embedding) similarity to the query. Some are probably relevant:
 ${LINE}
 ${snippets.join(LINE)} + ${LINE} +
 Using the above information as a reference, but ignoring any irrelevant sections, answer the follwing question:
