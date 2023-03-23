@@ -1,4 +1,4 @@
-const chatBody = document.querySelector('.chat-body');
+//const chatBody = document.querySelector('.chat-body');
 const eventSource = new EventSource('/query');
 eventSource.addEventListener('message', (e) => {
   const data = JSON.parse(e.data);
