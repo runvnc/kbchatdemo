@@ -35,7 +35,7 @@ const sendAndRecord = async (text, state, upd) => {
 
 const LINE = '\n--------------------------------------------------------------------\n'
 
-const contextualQuery = async (input, state) => {
+const contextualQuery = async (input, state, streamUpdate) => {
   const kb = new KnowledgeBase('kb')
   let hist = await state.getRecentHistory()
   hist = hist.map( h => h.content + '\n' )
@@ -71,10 +71,15 @@ ${input}`
   }
 }
 
+function showupd(d) => {
+  process.stdout.write(d.content)
+}
+
 async function test() {
   let state = await InteractionState.get('testacct')
   let query = "Summarize the process of creating an agricultural development district."
-  let result = await contextualQuery(query, state)
+  console.log()
+  let result = await contextualQuery(query, state, showupd)
   console.log({result})
 }
  
