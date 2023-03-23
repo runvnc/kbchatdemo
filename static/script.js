@@ -6,7 +6,7 @@ chatForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const query = chatInput.value;
   chatInput.value = '';
-  chatBody.insertAdjacentHTML('beforeend', `<p>${query}</p>`);
+  chatBody.insertAdjacentHTML('beforeend', `<p><strong>${query}</strong></p>`);
   chatBody.insertAdjacentHTML('beforeend', '<p>') 
   const response = await fetch('/query', {
     method: 'POST',

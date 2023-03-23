@@ -17,6 +17,10 @@
   height: 300px;
   overflow-y: scroll;
 }
+p {
+ margin-top: 10px;
+ margin-bottom: 5px;
+}
 .message {
   margin-bottom: 10px;
 }
