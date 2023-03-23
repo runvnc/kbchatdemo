@@ -1,3 +1,7 @@
+import dotenv from 'dotenv'
+dotenv.config()
+
+
 import { askChatContinue as askChat } from './askchat.mjs'
 import InteractionState from './state.js'
 import fs from 'fs/promises'
