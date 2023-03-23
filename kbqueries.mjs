@@ -35,12 +35,12 @@ const sendAndRecord = async (text, state, upd) => {
 
 const LINE = '\n--------------------------------------------------------------------\n'
 
-const contextualQuery = async (input, state, streamUpdate) => {
+const contextualQuery = async (input, acct, state, streamUpdate) => {
   const kb = new KnowledgeBase('kb')
   let hist = await state.getRecentHistory()
   hist = hist.map( h => h.content + '\n' )
-  let KBINFO = ''
   hist += input + '\n'
+  let res
   try {
     let snippets = await kb.search(hist)
     //snippets = snippets.slice(0,3)
@@ -51,6 +51,8 @@ ${LINE}
 ${snippets.join(LINE)} + ${LINE} +
 Using the above information as a reference, but ignoring any irrelevant sections, answer the following question:
 ${input}`
+    res = await askChat(acct, usr(kbprompt), {}, streamUpdate)
+    console.log({result:res[0]})
     } else {
       console.log('NO KB MATCHES!!')
     }
@@ -59,19 +61,14 @@ ${input}`
     console.warn(e)
     console.warn('may be normal if no KB data')
   }
-  if (KBINFO.length == 0) {
-    console.log('No KB search matches')
-  }
-  let res = await askChat(acct, tosend, {}, streamUpdate)
-  console.log({result:res[0]})
-  if (res[0]) {
+ if (res[0]) {
     state.kb = res[0]
   } else {
     throw new Error('Did not receive response from KB summarization.')
   }
 }
 
-function showupd(d) => {
+function showupd(d) {
   process.stdout.write(d.content)
 }
 
@@ -79,7 +76,7 @@ async function test() {
   let state = await InteractionState.get('testacct')
   let query = "Summarize the process of creating an agricultural development district."
   console.log()
-  let result = await contextualQuery(query, state, showupd)
+  let result = await contextualQuery(query, 'testacct', state, showupd)
   console.log({result})
 }
  
