@@ -10,8 +10,6 @@ function trimNewlines(str) {
   return lines.join('\n')
 }
 
-const ACCTS = process.env.ACCTS ? process.env.ACCTs : `${process.env.HOME}/accts` 
-
 
 function usr(text) {
   return { role: 'user', content: text }
@@ -70,7 +68,9 @@ ${input}`
 }
 
 async function test() {
-
+  let state = InteractionState.get('testacct')
+  let query = "Summarize the process of creating an agricultural development district."
+ 
 }
  
 

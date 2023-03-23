@@ -18,10 +18,10 @@ class InteractionState {
     console.log('loaded history')
  }
 
- static async getInteractionState(acct) {
-   if (appStates[acct+'_'+app]) return appStates[acct+'_'+app]
-   appStates[acct+'_'+app] = new InteractionState(`${acct}/.chathistory`)
-   return appStates[acct+'_'+app] 
+ static async get(acct) {
+   if (appStates[acct]) return appStates[acct]
+   appStates[acct] = new InteractionState(`${acct}/.chathistory`)
+   return appStates[acct] 
  }
 
   async addUserReply(reply) {
