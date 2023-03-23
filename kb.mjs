@@ -1,4 +1,4 @@
-import {readFile, appendFile, writeFile} from "fs/promises"
+import {readdir, readFile, appendFile, writeFile} from "fs/promises"
 import fsx from 'fs-extra'
 import path from 'path'
 import { Configuration, OpenAIApi } from "openai"

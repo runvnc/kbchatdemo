@@ -7,5 +7,17 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bottleneck": "^2.19.5",
+    "colorette": "^2.0.19",
+    "cos-similarity": "^1.1.1",
+    "delay": "^5.0.0",
+    "fs-extra": "^11.1.1",
+    "gpt3-tokenizer": "^1.1.5",
+    "openai": "^3.2.1",
+    "openai-streams": "^4.1.0",
+    "shell-escape": "^0.2.0",
+    "yield-stream": "^3.0.0"
+  }
 }
