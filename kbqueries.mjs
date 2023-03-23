@@ -50,7 +50,7 @@ const contextualQuery = async (input, acct, state, streamUpdate) => {
 The following knowledegbase sections have the closest vector (embedding) similarity to the query. Some are probably relevant:
 ${LINE}
 ${snippets.join(LINE)} + ${LINE} +
-Using the above information as a reference, but ignoring any irrelevant sections, answer the following question, citing the section numbers:
+Using the above information as a reference, but ignoring any irrelevant sections, answer the following question, (IMPORTANT: cite the section numbers!):
 ${input}`
     let tosend = hist
     tosend.push(usr(kbprompt))
