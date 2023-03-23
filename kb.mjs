@@ -22,7 +22,7 @@ export default class KnowledgeBase {
 
   constructor(name) {
     this.name = name
-
+    this.data = undefined
     this.dir = name
   }
 
@@ -76,6 +76,7 @@ export default class KnowledgeBase {
  }
 
 async load() {
+  if (this.data) return this.data
   let file = await readFile(`${this.dir}/kb.json`, 'utf8')
   let lines = file.split('\n')
   this.knowledge = []
@@ -83,7 +84,8 @@ async load() {
     if (!line) continue
     this.knowledge.push(JSON.parse(line))
   }
-  return this.knowledge
+  this.data = this.knowledge
+  return this.data
 }
 
 async isEmpty() {
@@ -107,16 +109,16 @@ async isEmpty() {
    })
    if (response.data.data) {
      let embedding = response.data.data[0].embedding
-     console.log({embedding})
+     //console.log({embedding})
      let knowledge = data.sort( (a,b) => {
        let similarityA = cosineSimilarity(a.embedding, embedding)
        let similarityB = cosineSimilarity(b.embedding, embedding)
-       console.log({similarityA, similarityB})
+      // console.log({similarityA, similarityB})
        if (similarityA < similarityB) return 1
        if (similarityA > similarityB) return -1
        return 0
      })
-     console.log({knowledge})
+     //console.log({knowledge})
      let totalLength = 0
      let results = []
      for (let i=0; i<10 && i<knowledge.length; i++) {
@@ -291,10 +293,15 @@ async function test3() {
 }
 
 async function legal() {
+  console.log('loading kb.')
   let kb = new KnowledgeBase('kb')
-  await kb.addAllDir('text')
+  await kb.load()
+  console.log('loaded')
+  await delay(500)
+  //await kb.addAllDir('text')
   //await kb.addDocument('algorand1.txt', (s) => console.log(s))
-  //let relevant = await kb.search("HTTP API call to get the forecasted temperature for the next 2 hours in a certain location.")
+  console.log('searching..')
+  let relevant = await kb.search("Summarize the process of creating an agricultural development district.")
   console.log(relevant)
 }
 
