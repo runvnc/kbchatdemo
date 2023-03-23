@@ -18,6 +18,10 @@ class InteractionState {
     console.log('loaded history')
  }
 
+ async clear() {
+   await this.writeAll([])
+ }
+
  static async get(acct) {
    if (appStates[acct]) return appStates[acct]
    appStates[acct] = new InteractionState(`${acct}/.chathistory`)

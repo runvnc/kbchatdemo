@@ -83,7 +83,8 @@ async function test() {
   console.log({result})
 }
  
+export {contextualQuery}
 
-test().catch(console.error)
+//test().catch(console.error)
 
 
