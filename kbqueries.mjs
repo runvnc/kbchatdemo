@@ -38,10 +38,11 @@ const LINE = '\n----------------------------------------------------------------
 const contextualQuery = async (input, acct, state, streamUpdate) => {
   const kb = new KnowledgeBase('kb')
   let hist = await state.getRecentHistory()
-  
+  hist.push(usr(input)) 
   let res
   try {
-    let snippets = await kb.search(hist)
+    let histText = hist.map( h => h.content )
+    let snippets = await kb.search(histText)
     //snippets = snippets.slice(0,3)
     if (snippets && snippets.length>0) { 
       let kbprompt = `
