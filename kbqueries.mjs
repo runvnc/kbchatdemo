@@ -49,7 +49,7 @@ const contextualQuery = async (input, acct, state, streamUpdate) => {
 The following knowledegbase sections have the closest vector (embedding) similarity to the query. Some are probably relevant:
 ${LINE}
 ${snippets.join(LINE)} + ${LINE} +
-Using the above information as a reference, but ignoring any irrelevant sections, answer the following question:
+Using the above information as a reference, but ignoring any irrelevant sections, answer the following question, citing the section numbers:
 ${input}`
     let tosend = hist
     tosend.push(usr(kbprompt))
@@ -63,9 +63,9 @@ ${input}`
     console.warn(e)
     console.warn('may be normal if no KB data')
   }
- if (res[0]) {
-    state.kb = res[0]
-    state.addAIReply(res[0])
+  if (res[0]) {
+    let answer = res[0][0]
+    state.addAIReply(answer)
   } else {
     throw new Error('Did not receive response from KB summarization.')
   }

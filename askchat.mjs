@@ -214,7 +214,7 @@ const askChatContinue = async (acct, messages, opts, streamUpdate) => {
       }
       //console.log(2,{messages})
       let cnt = tokenCount(messages)
-      await useCredits(acct, {tokens:cnt})
+      //await useCredits(acct, {tokens:cnt})
       const xopts = { weight: cnt, id: acct+'_'+Date.now() }
       console.log('about to call askchatwithoptions')
       let res = await askChat.withOptions(xopts, acct, nextPrompt, opts, upd)
