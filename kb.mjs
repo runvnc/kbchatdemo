@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
+import delay from 'delay'
 import {readdir, readFile, appendFile, writeFile} from "fs/promises"
 import fsx from 'fs-extra'
 import path from 'path'
@@ -301,10 +302,12 @@ async function legal() {
   //await kb.addAllDir('text')
   //await kb.addDocument('algorand1.txt', (s) => console.log(s))
   console.log('searching..')
+  let st = Date.now()
   let relevant = await kb.search("Summarize the process of creating an agricultural development district.")
-  console.log(relevant)
+  let en = Date.now()
+  console.log(relevant, en - st)
 }
 
 
-legal().catch(console.error)
+//legal().catch(console.error)
 

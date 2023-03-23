@@ -18,9 +18,9 @@ class InteractionState {
     console.log('loaded history')
  }
 
- static async getInteractionState(acct, app) {
+ static async getInteractionState(acct) {
    if (appStates[acct+'_'+app]) return appStates[acct+'_'+app]
-   appStates[acct+'_'+app] = new InteractionState(`${ACCTS}/${acct}/${app}/.chathistory`)
+   appStates[acct+'_'+app] = new InteractionState(`${acct}/.chathistory`)
    return appStates[acct+'_'+app] 
  }
 

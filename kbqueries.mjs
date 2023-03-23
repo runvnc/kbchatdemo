@@ -34,8 +34,7 @@ const sendAndRecord = async (text, state, upd) => {
 const LINE = '\n--------------------------------------------------------------------\n'
 
 const contextualQuery = async (input, state) => {
-  let {acct, app, input, cmd, streamUpdate} = params
- const kb = new KnowledgeBase(acct+'/'+app)
+  const kb = new KnowledgeBase('kb')
   let hist = await state.getRecentHistory()
   hist = hist.map( h => h.content + '\n' )
   let KBINFO = ''
@@ -62,15 +61,19 @@ ${input}`
     console.log('No KB search matches')
   }
   let res = await askChat(acct, tosend, {}, streamUpdate)
-  console.log(66)
+  console.log({result:res[0]})
   if (res[0]) {
     state.kb = res[0]
-    await delay(300)
-    return await nextResponse({acct, app, input:undefined, cmd:undefined, streamUpdate})
   } else {
     throw new Error('Did not receive response from KB summarization.')
   }
 }
 
-    
+async function test() {
+
+}
+ 
+
+test().catch(console.error)
+
 
