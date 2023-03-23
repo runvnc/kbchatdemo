@@ -45,7 +45,7 @@ const contextualQuery = async (input, state) => {
 The following knowledegbase sections have the closest vector (embedding) similarity to the query. Some are probably relevant:
 ${LINE}
 ${snippets.join(LINE)} + ${LINE} +
-Using the above information as a reference, but ignoring any irrelevant sections, answer the follwing question:
+Using the above information as a reference, but ignoring any irrelevant sections, answer the following question:
 ${input}`
     } else {
       console.log('NO KB MATCHES!!')
@@ -70,7 +70,8 @@ ${input}`
 async function test() {
   let state = InteractionState.get('testacct')
   let query = "Summarize the process of creating an agricultural development district."
- 
+  let result = await contextualQuery(query, state)
+  console.log({result})
 }
  
 
