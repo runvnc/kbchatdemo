@@ -68,7 +68,7 @@ ${input}`
 }
 
 async function test() {
-  let state = InteractionState.get('testacct')
+  let state = await InteractionState.get('testacct')
   let query = "Summarize the process of creating an agricultural development district."
   let result = await contextualQuery(query, state)
   console.log({result})
