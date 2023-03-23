@@ -37,5 +37,5 @@ server.listen(3600, async () => {
   state = await InteractionState.get('testacct')
   await state.clear()
 
-  console.log('Server running on port 3000');
+  console.log('Server running on port 3600');
 }); 
