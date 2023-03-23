@@ -8,6 +8,8 @@ chatForm.addEventListener('submit', async (e) => {
   chatInput.value = '';
   chatBody.insertAdjacentHTML('beforeend', `<p><strong>${query}</strong></p>`);
   chatBody.insertAdjacentHTML('beforeend', '<p>') 
+  chatBody.scrollTop = chatBody.scrollHeight;
+ 
   const response = await fetch('/query', {
     method: 'POST',
     headers: {
