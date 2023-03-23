@@ -249,12 +249,12 @@ async isEmpty() {
   }
 
   async addAllDir(dir) {
-    let files = await fs.readdir(dir)
+    let files = await fsx.readdir(dir)
     let i = 0
     let max = files.length
     for (let file of files) {
       console.log(`Adding ${i+1} of ${max}:`,file)
-      let text = await fs.readFile(file, 'utf8')
+      let text = await readFile(file, 'utf8')
       await this.add({file, text})
     }
   }
