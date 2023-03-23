@@ -17,7 +17,7 @@ app.get('/query', express.json(), async (req, res) => {
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
   res.flushHeaders();
-
+  console.log(req.query, res)
   let id = 0;
   const sendEvent = (data) => {
     res.write(`id: ${id}\n`);
@@ -25,7 +25,7 @@ app.get('/query', express.json(), async (req, res) => {
     id++;
   };
 
-  const query = req.body.query;
+  const query = req.query;
   console.log(query);
   if (!query) {
     res.end({response:'.'})

@@ -13,6 +13,9 @@ chatForm.addEventListener('submit', async (e) => {
     },
     body: JSON.stringify({ query })
   });
+  response.on('data', (d) => {
+    console.log(d)
+  })
   const data = await response.json();
   const message = `
     <div class="message">
