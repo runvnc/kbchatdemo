@@ -38,8 +38,7 @@ const LINE = '\n----------------------------------------------------------------
 const contextualQuery = async (input, acct, state, streamUpdate) => {
   const kb = new KnowledgeBase('kb')
   let hist = await state.getRecentHistory()
-  hist = hist.map( h => h.content + '\n' )
-  hist += input + '\n'
+  
   let res
   try {
     let snippets = await kb.search(hist)
@@ -51,7 +50,9 @@ ${LINE}
 ${snippets.join(LINE)} + ${LINE} +
 Using the above information as a reference, but ignoring any irrelevant sections, answer the following question:
 ${input}`
-    res = await askChat(acct, usr(kbprompt), {}, streamUpdate)
+    let tosend = hist
+    tosend.push(usr(kbprompt))
+    res = await askChat(acct, tosend, {}, streamUpdate)
     console.log({result:res[0]})
     } else {
       console.log('NO KB MATCHES!!')
@@ -63,6 +64,7 @@ ${input}`
   }
  if (res[0]) {
     state.kb = res[0]
+    state.addAIReply(res[0])
   } else {
     throw new Error('Did not receive response from KB summarization.')
   }
