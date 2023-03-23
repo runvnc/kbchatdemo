@@ -40,7 +40,7 @@ const contextualQuery = async (input, state) => {
   let hist = await state.getRecentHistory()
   hist = hist.map( h => h.content + '\n' )
   let KBINFO = ''
-
+  hist += input + '\n'
   try {
     let snippets = await kb.search(hist)
     //snippets = snippets.slice(0,3)
