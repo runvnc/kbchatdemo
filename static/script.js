@@ -13,9 +13,19 @@ chatForm.addEventListener('submit', async (e) => {
     },
     body: JSON.stringify({ query })
   });
-  response.on('data', (d) => {
-    console.log(d)
-  })
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+
+  while (true) {
+      const { value, done } = await reader.read();
+      if (done) {
+        break;
+      }
+
+      const chunk = decoder.decode(value, { stream: true });
+      chatBody.insertAdjacentHTML('beforeend', chunk);
+      chatBody.scrollTop = chatBody.scrollHeight;
+  }
   const data = await response.json();
   const message = `
     <div class="message">
